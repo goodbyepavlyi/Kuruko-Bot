@@ -19,15 +19,15 @@ module.exports = {
         const prefix = content.match(prefixRegex);
         if (!prefix) return;
 
-        const args = content.replace(prefixRegex, '').trim().split(/ +/g);
-        const commandName = args.shift().toLowerCase() || `help`;
+        const arguments = content.replace(prefixRegex, '').trim().split(/ +/g);
+        const commandName = arguments.shift().toLowerCase() || `help`;
 
         const command = client.interactions.command.find(command => command.name == commandName);
         if (!command) return;
 
         try {
-            log('User Action', `'${user.tag}' (${user.id}) used command '${commandName}'`, `green`);
-            return await command.runMessage(message, args);
+            log('User Action', `'${user.tag}' (${user.id}) executed command '${commandName}'`, `green`);
+            return await command.runMessage(message, arguments);
         } catch (error) {
             const errorEmbed = await reportError(client, user, error, 'Message Command', commandName);
             return message.reply({ embeds: [errorEmbed] });

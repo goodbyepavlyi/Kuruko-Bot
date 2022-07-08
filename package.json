@@ -1,5 +1,5 @@
 {
-  "name": "discord-bot-template",
+  "name": "kuruko-bot",
   "version": "1.0.0",
   "description": "My Discord Bot template.",
   "main": "app.js",
@@ -7,11 +7,21 @@
     "start": "node app.js"
   },
   "author": "goodbyepavlyi",
-  "license": "GPL",
+  "license": "GPL-3.0",
   "dependencies": {
+    "axios": "^0.27.2",
     "chalk": "^4.1.2",
     "discord.js": "^13.6.0",
     "express": "^4.17.3",
     "topgg-autoposter": "^2.0.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kurukobot/bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kurukobot/bot/issues"
+  },
+  "homepage": "https://github.com/kurukobot/bot#readme"
 }
