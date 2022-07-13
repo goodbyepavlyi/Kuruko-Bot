@@ -1,7 +1,7 @@
 const { AutocompleteInteraction, CommandInteraction, Message } = require(`discord.js`);
-const { CAT } = require(`../../assets/messages.js`);
-const { cat } = require(`../../utils/animalApi.js`);
-const { sendMessage } = require(`../../utils/command.js`);
+const { CAT } = require(`../../../assets/messages.js`);
+const { cat } = require(`../../../utils/animalApi.js`);
+const { sendMessage } = require(`../../../utils/command.js`);
 
 module.exports = {
     type: `command`,

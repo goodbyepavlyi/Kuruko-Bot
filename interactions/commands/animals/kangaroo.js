@@ -1,7 +1,7 @@
 const { AutocompleteInteraction, CommandInteraction, Message } = require(`discord.js`);
-const { KANGAROO } = require(`../../assets/messages.js`);
-const { kangaroo } = require(`../../utils/animalApi.js`);
-const { sendMessage } = require(`../../utils/command.js`);
+const { KANGAROO } = require(`../../../assets/messages.js`);
+const { kangaroo } = require(`../../../utils/animalApi.js`);
+const { sendMessage } = require(`../../../utils/command.js`);
 
 module.exports = {
     type: `command`,

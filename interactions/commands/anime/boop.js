@@ -1,7 +1,7 @@
 const { AutocompleteInteraction, CommandInteraction, Message, User } = require(`discord.js`);
-const kawaiiapi = require(`../../utils/kawaiiapi.js`);
-const { sendMessage } = require("../../utils/command.js");
-const { BOOP } = require(`../../assets/messages.js`);
+const kawaiiapi = require(`../../../utils/kawaiiapi.js`);
+const { sendMessage } = require("../../../utils/command.js");
+const { BOOP } = require(`../../../assets/messages.js`);
 
 module.exports = {
     type: `command`,
