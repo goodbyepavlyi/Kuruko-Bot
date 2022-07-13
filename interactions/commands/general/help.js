@@ -1,12 +1,14 @@
-const { AutocompleteInteraction, CommandInteraction, Message, MessageEmbed, Client, MessageActionRow, MessageButton } = require(`discord.js`);
+const { AutocompleteInteraction, CommandInteraction, Message, MessageEmbed, MessageActionRow, MessageButton, Client } = require(`discord.js`);
+const { HELP, HELP_BUTTONS } = require(`../../../assets/messages.js`);
+const { sendMessage } = require(`../../../utils/command.js`);
 const ms = require(`ms`);
-const { HELP_FOOTER, HELP_ABOUT_TITLE, HELP_ABOUT_DESCRIPTION, HELP_BUTTON_WEBSITE, HELP_BUTTON_INVITE, HELP_BUTTON_VOTE } = require(`../../../assets/messages.js`);
 
 module.exports = {
     type: `command`,
     name: `help`,
-    description: `Get some help.`,
+    description: `Let me introduce myself in a few words.`,
     options: [],
+    id: `general`,
 
     /**
      * @param {AutocompleteInteraction} interaction 
@@ -21,8 +23,7 @@ module.exports = {
      */
     async runInteraction(interaction) {
         const { client } = interaction;
-        const response = await this.run(client);
-        return interaction.reply(response);
+        await this.run(interaction, client);
     },
     
     /**
@@ -31,40 +32,17 @@ module.exports = {
      */
     async runMessage(message, arguments) {
         const { client } = message;
-        const response = await this.run(client);
-        return message.reply(response);
+        await this.run(message, client);
     },
 
     /**
      * @param {CommandInteraction | Message} source 
+     * @param {Client} client 
      */
-	async run(source) {
+	async run(source, client) {
         const uptime = ms(client.uptime);
         const developer = await client.users.fetch(client.ownerId)
 
-        const helpEmbed = new MessageEmbed()
-            .setColor(client.accentColor)
-            .setThumbnail(client.user.displayAvatarURL())
-            .setFooter({
-                text: HELP_FOOTER.replaceAll(`{uptime}`, uptime),
-            })
-            .addField(HELP_ABOUT_TITLE, HELP_ABOUT_DESCRIPTION.replaceAll(`{developer}`, developer.tag));
-        
-        const helpButtons = new MessageActionRow().addComponents(
-            new MessageButton()
-                .setStyle(`LINK`)
-                .setURL(client.baseUrl)
-                .setLabel(HELP_BUTTON_WEBSITE),
-            new MessageButton()
-                .setStyle(`LINK`)
-                .setURL(`${client.baseUrl}/go/botinvite`)
-                .setLabel(HELP_BUTTON_INVITE),
-            new MessageButton()
-                .setStyle(`LINK`)
-                .setURL(`${client.baseUrl}/go/vote`)
-                .setLabel(HELP_BUTTON_VOTE),
-        );
-
-		return { embeds: [helpEmbed], components: [helpButtons] };
+		return sendMessage(source, { embeds: [HELP(client.user.displayAvatarURL(), uptime, developer.tag)], components: [HELP_BUTTONS] });
 	},
 };

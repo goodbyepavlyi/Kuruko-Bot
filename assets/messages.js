@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const client = require("../app");
 
 module.exports = {
@@ -199,10 +199,27 @@ module.exports = {
             .setDescription(`**${username}** tickles ${text}`)
             .setImage(image),
 
-    HELP_FOOTER: "Online for {uptime}",
-    HELP_ABOUT_TITLE: "About Kuruko",
-    HELP_ABOUT_DESCRIPTION: "I'm developed by `{developer}`.\n**Kuruko** was designed to be a **simple** bot with many **interesting features**.",
-    HELP_BUTTON_WEBSITE: "Website",
-    HELP_BUTTON_INVITE: "Add Kuruko",
-    HELP_BUTTON_VOTE: "Vote",
+    HELP: (avatar, uptime, developer) =>
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setThumbnail(avatar)
+            .setFooter({
+                text: `Online for ${uptime}`
+            })
+            .addField(`About Kuruko`, `I'm developed by \`${developer}\`.\n**Kuruko** was designed to be a **simple** bot with many **interesting features**.`),
+    HELP_BUTTONS:
+        new MessageActionRow().addComponents(
+            new MessageButton()
+                .setStyle(`LINK`)
+                .setURL(client.baseUrl)
+                .setLabel(`Website`),
+            new MessageButton()
+                .setStyle(`LINK`)
+                .setURL(`${client.baseUrl}/go/botinvite`)
+                .setLabel(`Add Kuruko`),
+            new MessageButton()
+                .setStyle(`LINK`)
+                .setURL(`${client.baseUrl}/go/vote`)
+                .setLabel(`Vote`),
+        ),
 };
