@@ -18,9 +18,13 @@ module.exports = {
         new MessageEmbed()
             .setColor(client.accentColor)
             .setTitle(`You have to be in the same voice channel as the bot!`),
-
-    ERROR_TITLE: "Error #{id}",
-    ERROR_DESCRIPTION: "During the processing of this action, an error occurred. Please contact our support team regarding this error.",
+    
+    ERROR: (id) =>
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setURL(`${client.repositoryUrl}/issues/new?template=bug_report.md`)
+            .setTitle(`Error #;${id}`)
+            .setDescription(`During the processing of this action, an error occurred. It would be appreciated if you would report this error on our Github page.`),
 
     HELP_FOOTER: "Online for {uptime}",
     HELP_ABOUT_TITLE: "About Kuruko",
