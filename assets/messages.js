@@ -23,7 +23,7 @@ module.exports = {
         new MessageEmbed()
             .setColor(client.accentColor)
             .setURL(`${client.repositoryUrl}/issues/new?template=bug_report.md`)
-            .setTitle(`Error #;${id}`)
+            .setTitle(`Error #${id}`)
             .setDescription(`During the processing of this action, an error occurred. It would be appreciated if you would report this error on our Github page.`),
 
             
