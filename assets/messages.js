@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const { MessageEmbed, MessageActionRow, MessageButton, User } = require("discord.js");
 const client = require("../app");
 
 module.exports = {
@@ -222,4 +222,160 @@ module.exports = {
                 .setURL(`${client.baseUrl}/go/vote`)
                 .setLabel(`Vote`),
         ),
+
+    NO_MUSIC_PLAYING:
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`The music must be playing to use that!`),
+    NOT_ENOUGH_SONGS:
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`No music in the queue after the current one.`),
+    NO_MUSIC_PLAYED_BEFORE:
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`There was no music played before.`),
+
+    NOWPLAYING_INFORMATION: (cover, title, volume, duration, loopMode, requestedBy) =>
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTimestamp()
+            .setThumbnail(cover)
+            .setAuthor({
+                name: requestedBy.username,
+                iconURL: requestedBy.displayAvatarURL()
+            })
+            .setTitle(title)
+            .setDescription(`Volume **${volume}%**\nDuration **${duration}**\nLoop **${[ `disabled`, `track`, `queue` ][loopMode]}**\nRequested by **${requestedBy}**`),
+
+    PAUSE_SUCCESS: (title) =>
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`Paused **${title}**. Type \`/resume\` to unpause!`),
+
+    PLAY_NO_RESULTS:
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`:mag: I could not find any results for this song!`),
+    PLAY_SEARCHING: (songQuery) =>
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`:watch: Searching for **${songQuery}**...`),
+    PLAY_JOINING_VOICE_CHANNEL:
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`Connecting to the voice channel...`),    
+    PLAY_CANT_JOIN_VOICE_CHANNEL:
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`:no_entry_sign: I am not able to access the voice channel!`),
+    /**
+     * @param {User} requestedBy 
+     */
+    PLAY_PLAYLIST: (requestedBy, playlistName, url, duration, thumbnail) =>
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTimestamp()
+            .setAuthor({
+                name: requestedBy.username,
+                iconURL: requestedBy.displayAvatarURL(),
+            })
+            .setURL(url)
+            .setTitle(`${playlistName}`)
+            .setThumbnail(thumbnail)
+            .setDescription(`Duration **${duration}**`),
+    /**
+     * @param {User} requestedBy 
+     */
+    PLAY_TRACK: (requestedBy, trackName, url, duration, thumbnail) =>
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTimestamp()
+            .setAuthor({
+                name: requestedBy.username,
+                iconURL: requestedBy.displayAvatarURL(),
+            })
+            .setURL(url)
+            .setTitle(`${trackName}`)
+            .setThumbnail(thumbnail)
+            .setDescription(`Duration **${duration}**`),
+
+    QUEUE: (repeatMode, current, progress, tracks) => {
+        const repeatModes = [ ``, `🔁`, `🔂` ];
+
+        const currentlyPlaying = `\`Currently playing\` [**${current.title}**](${current.url}) - <@${current.requestedBy.id}> **${progress}/${current.duration}**`;
+        const trackList = tracks.map((track, index) => `\`${index+=1}.\` [**${track.title}**](${track.url}) - <@${track.requestedBy.id}> **${track.duration}**`).slice(0, 10).join('\n');
+        const footer = tracks.length > 10 ? `And **${tracks.length}** other song(s)` : ``;
+
+        return new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTimestamp()
+            .setTitle(`Queue ${repeatModes[repeatMode]}`)
+            .setDescription(`${currentlyPlaying}\n${trackList}\n${footer}`);
+    },
+
+    LOOP_INVALID_MODE:
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`You have to input a valid loop type!`)
+            .setDescription(`Valid loop types are \`off\`, \`track\` and \`queue\`.`),
+    LOOP_EMBED: (mode) => {
+        const responses = {
+            off: `Repeating has been disabled.`,
+            track: `The track will now be repeated.`,
+            queue: `The queue will now be repeated.`,
+        };
+
+        return new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(responses[mode]);
+    },
+
+    RESUME: (name) =>
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`Resumed **${name}**.`),
+
+    SEEK_INVALID_TIME:
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`The indicated time is higher than the total time of the current song!`)
+            .setDescription(`*Try for example a valid time like **5s, 10s, 20 seconds, 1m***`),
+    SEEK: (position) =>
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`The position has been changed to **${position}**!`),
+            
+    SHUFFLE: (size) =>
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`Shuffled ${size} song(s)!`),
+            
+    SKIP: (name) =>
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`${name} has been skipped!`),
+
+    PREVIOUS:
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`Playing the previous track!`),
+
+    VOLUME_CURRENT: (volume) =>
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`The current volume is **${volume}%**.`),
+    VOLUME_USAGE:
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`Enter a number between **1 and 100**.`),
+    VOLUME_SET: (volume) =>
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`Volume has been changed to **${volume}%**.`),
+    
+    STOP:
+        new MessageEmbed()
+            .setColor(client.accentColor)
+            .setTitle(`The queue has been cleared and the music has stopped.`),
 };

@@ -9,19 +9,20 @@
   "author": "goodbyepavlyi",
   "license": "GPL-3.0",
   "dependencies": {
+    "@discordjs/opus": "^0.8.0",
     "axios": "^0.27.2",
     "chalk": "^4.1.2",
+    "discord-player": "^5.2.2",
     "discord.js": "^13.6.0",
     "express": "^4.17.3",
     "topgg-autoposter": "^2.0.1"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kurukobot/bot.git"
+    "url": "git+https://github.com/goodbyepavlyi/Kuruko-Bot.git"
   },
   "bugs": {
-    "url": "https://github.com/kurukobot/bot/issues"
+    "url": "https://github.com/goodbyepavlyi/Kuruko-Bot/issues"
   },
-  "homepage": "https://github.com/kurukobot/bot#readme"
+  "homepage": "https://github.com/goodbyepavlyi/Kuruko-Bot#readme"
 }

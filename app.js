@@ -16,9 +16,9 @@ const client = new Client({
     intents: [
         Intents.FLAGS.GUILDS,
         Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
         Intents.FLAGS.GUILD_PRESENCES,
         Intents.FLAGS.DIRECT_MESSAGES,
+        Intents.FLAGS.GUILD_VOICE_STATES,
     ],
     partials: [ `MESSAGE`, `CHANNEL` ],
 });
@@ -101,3 +101,5 @@ app.listen(client.serverPort, (error) => {
 
     log(`API`, `Listening to http://localhost:${client.serverPort}`, `green`);
 });
+
+process.on('uncaughtException', (error) => log(`Error`, error.stack, `red`))
