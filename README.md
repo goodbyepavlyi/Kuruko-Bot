@@ -1,4 +1,4 @@
-<p align="center"><img src="https://i.imgur.com/xP5rMt3.png"></p>
+<p align="center"><img src="https://cdn.goodbyepavlyi.eu/r/introduction.png"></p>
 
 # Kuruko Bot
 ## Links
