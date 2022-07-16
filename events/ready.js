@@ -18,7 +18,7 @@ module.exports = {
         });
 
         const topgg = AutoPoster(client.topggToken, client);
-        topgg.on(`posted`, () => log(`Top.GG`, `Posted bot statistics!`, `pink`))
+        topgg.on(`posted`, () => log(`Top.GG`, `Posted bot statistics!`, `green`))
             .on(`error`, (error) => log(`Top.GG`, `Failed to post bot statistics! ${error.message}`, `red`));
 
         await slashsync(client);
