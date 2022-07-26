@@ -21,9 +21,9 @@ module.exports = {
         try {
             log('User Action', `'${user.tag}' (${user.id}) executed command '${commandName}'`, `green`);
 
-            if (command.guildOnly && !guild?.id) return message.reply({ embeds: [GUILD_ONLY] })
-            if (command.voiceChannel && !member.voice.channel) return message.reply({ embeds: [USER_NOT_IN_VOICE_CHANNEL] })
-            if (command.voiceChannel && guild.me.voice.channel && member.voice.channel.id !== guild.me.voice.channel.id) return message.reply({ embeds: [USER_NOT_IN_SAME_VOICE_CHANNEL] })
+            if (command.guildOnly && !guild?.id) return interaction.reply({ embeds: [GUILD_ONLY] })
+            if (command.voiceChannel && !member.voice.channel) return interaction.reply({ embeds: [USER_NOT_IN_VOICE_CHANNEL] })
+            if (command.voiceChannel && guild.me.voice.channel && member.voice.channel.id !== guild.me.voice.channel.id) return interaction.reply({ embeds: [USER_NOT_IN_SAME_VOICE_CHANNEL] })
     
             return await command.runInteraction(interaction);
         } catch (error) {
